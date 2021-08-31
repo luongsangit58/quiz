@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English For Fun | SangNL</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container loading">
+        <div class="row">
+            <div class="text-center">
+                <h2>Creative Animated Loading icon in HTML5 CSS3</h2>
+            </div>    
+            <div class="animationload">
+                <div class="osahanloading"></div>
+            </div>
+        </div>
+    </div>
+    <h1 class="text-center">English For Fun</h1>
+    <div class="container-fluid">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-xs-3 5"></div>
+                    <div class="quiz" id="quiz" data-toggle="buttons">
+                        <label class="element-animation btn btn-lg btn-warning btn-block btn-label" >
+                            <input type="radio" name="q_answer" value="easy"> Easy
+                        </label> 
+                        <label class="element-animation btn btn-lg btn-success btn-block btn-label">
+                            <input type="radio" name="q_answer" value="medium"> Medium
+                        </label>
+                        <label class="element-animation btn btn-lg btn-danger btn-block btn-label">
+                            <input type="radio" name="q_answer" value="medium"> Hard
+                        </label> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script>
+        function loading(){
+            $('.loading').show();
+            setInterval(function(){
+                $('.loading').hide(120);
+            }, 800);
+        }
+        loading();
+        $('.quiz label').on('click', function() {
+            var mode = $(this).find('input').val();
+            window.location.href = `${mode}.html`;
+        });
+    </script>
+</body>
+</html>
