@@ -7,9 +7,6 @@ function loading(){
 loading();
 $.get('json/medium.json', null, null, 'json')
 .then(function(response){
-    // var iAmNumberFour = response.filter(function(q){
-    //     return q.id === question;
-    // })[0];
     var userAnswers = {},
     totalCorrect = 0,
     questionId = 0,
@@ -17,7 +14,6 @@ $.get('json/medium.json', null, null, 'json')
     countTime;
 
     response = response.sort(() => Math.random() - 0.5).slice(-5);
-    console.log(response)
     function hashAnswer(answer) {
         return CryptoJS.MD5(answer).toString();
     }
@@ -117,7 +113,6 @@ $.get('json/medium.json', null, null, 'json')
                 loadQuestion(key);
                 $('.div-btn-quiz-medium').remove();
                 $('label').attr("disabled",true);
-                $('.btn-next').remove();
                 var tmp = '';
     
                 $("label").each(function(k, val) {                
@@ -130,6 +125,7 @@ $.get('json/medium.json', null, null, 'json')
                 }
                 $('.question-'+question.id).find("label[data-value='"+tmp+"']").addClass('btn-success');
             });
+            $('.btn-next').remove();
         }
     }
 
