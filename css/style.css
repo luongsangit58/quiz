@@ -235,7 +235,7 @@ body {
 
 /* title banner */
 .title-banner {
-    padding: 20px 0;
+    padding: 20px 0 0 0;
     font-family: 'Red Hat Display', sans-serif;
     font-weight: 900;
     background: url(https://as2.ftcdn.net/v2/jpg/03/02/32/77/1000_F_302327747_KUVnu3zwuqVLXtQDzJQYKi2WLA1JG41Q.jpg);
@@ -270,4 +270,8 @@ body {
 
 #to_top:hover {
     background: #eee
+}
+
+.span-title{
+    font-size: 20px;
 }
