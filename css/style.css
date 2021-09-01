@@ -177,13 +177,18 @@ label .glyphicon {
     margin-top: 15px;
 }
 
-.timeUp {
+.time-up {
     color: red;
+    font-weight: bold;
 }
-
-.btn-back-home, .btn-start{
+.btn-start{
     width: 100%;
     font-size: 15px;
+}
+
+.btn-back-home {
+    position: fixed;
+    bottom: 0;
 }
 
 /* Easy */
@@ -203,4 +208,66 @@ label .glyphicon {
 
 .input-group {
     padding: 50px;
+}
+
+/* Background */
+body {
+	margin: 0;
+	width: 100%;
+	background: linear-gradient(-45deg, #fdd1c3, #f3b8ce, #80d4f3, #93e2d0);
+	background-size: 400% 800%;
+	animation: gradientBG 15s ease infinite;
+}
+@keyframes gradientBG {
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+.container {
+	width: 100%;
+	position: absolute;
+	top: 35%;
+	text-align: center;
+}
+
+/* title banner */
+.title-banner {
+    padding: 20px 0;
+    font-family: 'Red Hat Display', sans-serif;
+    font-weight: 900;
+    background: url(https://as2.ftcdn.net/v2/jpg/03/02/32/77/1000_F_302327747_KUVnu3zwuqVLXtQDzJQYKi2WLA1JG41Q.jpg);
+    background-size: 40%;
+    background-position: 50% 50%;
+    -webkit-background-clip: text;
+    color: rgba(0,0,0,0.08);
+    animation: zoomout 5s ease 500ms forwards;
+}
+
+@keyframes zoomout {
+  from {
+    background-size: 40%;
+  }
+  to {
+    background-size: 10%;
+  }
+}
+
+#to_top {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #E5E5E5;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 3px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px
+}
+
+#to_top:hover {
+    background: #eee
 }
