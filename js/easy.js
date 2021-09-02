@@ -67,24 +67,28 @@ $.get('json/easy.json', null, null, 'json')
     });
 
     $('button[type=submit]').on('click', function() {
-        $(this).prop("disabled", true);
-        var text = validateText($('#text-check').val());
-        console.log(keyText, text);
-        if(text && keyText != null && hashText(keyText+text) == sessionStorage.getItem(keyText)){
+        var textInput = validateText($('#text-check').val());
+        if(textInput == "") {
+            alert('The text is required');
+            return false;
+        }else if(textInput && keyText != null && hashText(keyText+textInput) == sessionStorage.getItem(keyText)){
             setInputText(true);
             correct++;
             var statusChecked = `<span class="label label-success">Correct</span>`;
         }else{
             var statusChecked = `<span class="label label-danger">Wrong</span>`;
             setInputText(false);
-
         }
+        $(this).prop("disabled", true);
+        var text = response[keyText].split(":");
         itemChecked += `<tr>
-                            <td>${validateText(response[keyText])}</td>
-                            <td>${text}</td>
+                            <td>${validateText(text[0])}</td>
+                            <td>${textInput}</td>
+                            <td>${validateText(text[1])}</td>
                             <td>${statusChecked}</td>
                         </tr>`;
 
+        // Next text
         setTimeout(function(){
             if(blacklist.length < TOTAL_TEXT){
                 setInputText(null);
@@ -104,6 +108,7 @@ $.get('json/easy.json', null, null, 'json')
                                         <tr>
                                             <th class="text-center">Text</th>
                                             <th class="text-center">Your input</th>
+                                            <th class="text-center">Translate</th>
                                             <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
