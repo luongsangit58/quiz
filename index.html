@@ -48,10 +48,11 @@
             $('.loading').show();
             setInterval(function(){
                 $('.loading').hide(120);
-            }, 800);
+            }, 1000);
         }
         loading();
         $('.quiz label').on('click', function() {
+            loading();
             var mode = $(this).find('input').val();
             window.location.href = `${mode}.html`;
         });

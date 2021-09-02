@@ -2,7 +2,7 @@ function loading(){
     $('.loading').show();
     setInterval(function(){
         $('.loading').hide(100);
-    }, 1000);
+    }, 1200);
 }
 loading();
 sessionStorage.clear();
@@ -10,16 +10,21 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 $.get('json/easy.json', null, null, 'json')
 .then(function(response){
     const COUNTER = 5,
-        TOTAL_TEXT = 2;
+        TOTAL_TEXT = 10;
     var counter = COUNTER,
         blacklist = [],
         keyText = null,
         itemChecked = '',
-        correct = 0,
-        response = response[0].text.split(" ");
+        correct = 0;
+        response = response[0].text.split("|");
+        console.log(response)
 
     function hashText(text) {
         return CryptoJS.MD5(text).toString();
+    }
+
+    function validateText(text) {
+        return text.toLowerCase().trim();
     }
 
     function randomText (min, max, blacklist) {
@@ -35,14 +40,17 @@ $.get('json/easy.json', null, null, 'json')
         $('.times').html('00:0'+COUNTER);
         keyText = randomText(0, response.length-1, blacklist);
         blacklist.push(keyText);
-        sessionStorage.setItem(keyText, hashText(keyText+response[keyText].toLowerCase()));
-        $('.flicker').text(response[keyText].toLowerCase());
+        var text = response[keyText].split(":");
+        sessionStorage.setItem(keyText, hashText(keyText+validateText(text[0])));
+        $('.flicker').text(validateText(text[0]));
+        $('.text-translate').text(validateText(text[1]));
         countTime = setInterval(function() {
             counter--;
             $('.times').html('00:0'+counter);
             if (counter == 0) {
                 clearInterval(countTime);
-                $('.sign').hide();
+                $('.flicker').html('');
+                $('.text-remember').hide();
                 $('.counter').hide();
                 $('.input-group').show();
                 $('#text-check').focus();
@@ -60,7 +68,8 @@ $.get('json/easy.json', null, null, 'json')
 
     $('button[type=submit]').on('click', function() {
         $(this).prop("disabled", true);
-        var text = $('#text-check').val().toLowerCase();
+        var text = validateText($('#text-check').val());
+        console.log(keyText, text);
         if(text && keyText != null && hashText(keyText+text) == sessionStorage.getItem(keyText)){
             setInputText(true);
             correct++;
@@ -71,7 +80,7 @@ $.get('json/easy.json', null, null, 'json')
 
         }
         itemChecked += `<tr>
-                            <td>${response[keyText].toLowerCase()}</td>
+                            <td>${validateText(response[keyText])}</td>
                             <td>${text}</td>
                             <td>${statusChecked}</td>
                         </tr>`;
@@ -81,7 +90,7 @@ $.get('json/easy.json', null, null, 'json')
                 setInputText(null);
                 $('button[type=submit]').prop("disabled", false);
                 $('.input-group').hide();
-                $('.sign').show();
+                $('.text-remember').show();
                 $('.counter').show();
                 counter = COUNTER;
                 loadText();
@@ -112,23 +121,25 @@ $.get('json/easy.json', null, null, 'json')
     });
 
     function setInputText(result) {
+        var buttonSubmit = $('button[type=submit]'),
+            textCheck = $('#text-check');
         switch (result) {
             case true:
-                $('#text-check').css('backgroundColor', 'lightgreen');
-                $('button[type=submit]').addClass('btn-success');
-                $('button[type=submit]').text('Correct');
+                textCheck.css('backgroundColor', 'lightgreen');
+                buttonSubmit.addClass('btn-success');
+                buttonSubmit.text('Correct');
                 break;
             case false:
-                $('#text-check').css('backgroundColor', 'lightcoral');
-                $('button[type=submit]').addClass('btn-danger');
-                $('button[type=submit]').text('Wrong');
+                textCheck.css('backgroundColor', 'lightcoral');
+                buttonSubmit.addClass('btn-danger');
+                buttonSubmit.text('Wrong');
                 break;
             default:
-                $('#text-check').val('');
-                $('#text-check').removeAttr("style");
-                $('button[type=submit]').removeClass('btn-danger');
-                $('button[type=submit]').removeClass('btn-success');
-                $('button[type=submit]').text('Check');
+                textCheck.val('');
+                textCheck.removeAttr("style");
+                buttonSubmit.removeClass('btn-danger');
+                buttonSubmit.removeClass('btn-success');
+                buttonSubmit.text('Check');
                 break;
         }
     }

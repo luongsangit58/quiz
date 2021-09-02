@@ -2,7 +2,7 @@ function loading(){
     $('.loading').show();
     setInterval(function(){
         $('.loading').hide(100);
-    }, 1000);
+    }, 1200);
 }
 loading();
 $.get('json/medium.json', null, null, 'json')
