@@ -58,5 +58,29 @@
         "d": "do"
       },
     "correct": "21abffb833335edcc6b6e02afa2a17b7"
+  },
+  {
+    "id": 6,
+    "question": "What subject ___ you like?",
+    "answers": 
+      {
+        "a": "are",
+        "b": "do",
+        "c": "did",
+        "d": "is"
+      },
+    "correct": "5810b2fb0cd6ef028267892461585def"
+  },
+  {
+    "id": 7,
+    "question": "How many books ___ there?",
+    "answers": 
+      {
+        "a": "do",
+        "b": "are",
+        "c": "is",
+        "d": "did"
+      },
+    "correct": "860588ba5aaaa096c3b085a99fd6c171"
   }
 ]

@@ -98,18 +98,18 @@ $.get('json/easy.json', null, null, 'json')
         }else if(textInput && keyText != null && hashText(keyText+textInput) == sessionStorage.getItem(keyText)){
             setInputText(true);
             correct++;
-            var statusChecked = `<span class="label label-success">Correct</span>`;
+            var flagCheck = true;
         }else{
-            var statusChecked = `<span class="label label-danger">Wrong</span>`;
             setInputText(false);
+            var flagCheck = false;
         }
         $(this).prop("disabled", true);
         var text = response[keyText].split(":");
-        itemChecked += `<tr>
+        itemChecked += `<tr class="bg-${flagCheck ? "success" : "danger"}">
                             <td>${validateText(text[0])}</td>
                             <td>${textInput}</td>
                             <td>${validateText(text[1])}</td>
-                            <td>${statusChecked}</td>
+                            <td><span class="label label-${flagCheck ? "success" : "danger"}">${flagCheck ? "Correct" : "Wrong"}</span></td>
                         </tr>`;
 
         // Next text
@@ -127,7 +127,7 @@ $.get('json/easy.json', null, null, 'json')
                 loadText();
                 var htmlResult = `
                                 <h3 class="text-center text-danger">Correct: ${correct}/${TOTAL_TEXT}</h3>
-                                <table class="table table-striped table-condensed">
+                                <table class="table table-condensed">
                                     <thead>
                                         <tr>
                                             <th class="text-center">Text</th>

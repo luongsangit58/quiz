@@ -16,6 +16,7 @@ $.get('json/medium.json', null, null, 'json')
     countTime;
 
     response = response.sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
+    
     function hashAnswer(answer) {
         return CryptoJS.MD5(answer).toString();
     }
