@@ -7,13 +7,15 @@ function loading(){
 loading();
 $.get('json/medium.json', null, null, 'json')
 .then(function(response){
+    const COUNTER_TIME = 10,
+        TOTAL_QUESTIONS = 5;
     var userAnswers = {},
     totalCorrect = 0,
     questionId = 0,
-    counter = 10,
+    counter = COUNTER_TIME,
     countTime;
 
-    response = response.sort(() => Math.random() - 0.5).slice(-5);
+    response = response.sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
     function hashAnswer(answer) {
         return CryptoJS.MD5(answer).toString();
     }
@@ -39,7 +41,7 @@ $.get('json/medium.json', null, null, 'json')
                     <h3 class="question-lable">${q+1}. ${question.question}</h3>
                 </div>
                 <div class="modal-body">
-                    <div class="col-xs-3 5"></div>
+                    <div class="col-xs-3"></div>
                     <div class="quiz question-answers" id="quiz" data-toggle="buttons">
                         ${htmlAnswer}
                     </div>
@@ -60,7 +62,7 @@ $.get('json/medium.json', null, null, 'json')
 
         $('.question-answers label').on('click', function() {
             answer = $(this).attr('data-value');
-            countTimeUp(10);
+            countTimeUp(COUNTER_TIME);
             clickSubmit(answer, question);
         });
     }
@@ -70,7 +72,7 @@ $.get('json/medium.json', null, null, 'json')
             $('.times').html('Time up!!!');
             $('.counter').addClass('time-up');
         }else{
-            time = (time < 10) ? '0'+time : time;
+            time = (time < COUNTER_TIME) ? '0'+time : time;
             $('.times').html('00:'+time);
             $('.counter').removeClass('time-up');
         }
@@ -99,8 +101,7 @@ $.get('json/medium.json', null, null, 'json')
     }
 
     function nextQuestion(question) {
-        counter = 10;
-        countTimeUp(counter);
+        countTimeUp(COUNTER_TIME);
         if(questionId < Object.keys(response).length){
             $('.question-'+question.id).remove();
             loadQuestion(questionId);

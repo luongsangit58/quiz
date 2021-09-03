@@ -16,8 +16,8 @@ $.get('json/easy.json', null, null, 'json')
         keyText = null,
         itemChecked = '',
         correct = 0;
-        response = response[0].text.split("|");
-        console.log(response)
+    
+    response = response[0].text.split("|");
 
     function hashText(text) {
         return CryptoJS.MD5(text).toString();
@@ -57,6 +57,30 @@ $.get('json/easy.json', null, null, 'json')
                 return false;
             }
         }, 1000);
+    }
+
+    function setInputText(result) {
+        var buttonSubmit = $('button[type=submit]'),
+            textCheck = $('#text-check');
+        switch (result) {
+            case true:
+                textCheck.css('backgroundColor', 'lightgreen');
+                buttonSubmit.addClass('btn-success');
+                buttonSubmit.text('Correct');
+                break;
+            case false:
+                textCheck.css('backgroundColor', 'lightcoral');
+                buttonSubmit.addClass('btn-danger');
+                buttonSubmit.text('Wrong');
+                break;
+            default:
+                textCheck.val('');
+                textCheck.removeAttr("style");
+                buttonSubmit.removeClass('btn-danger');
+                buttonSubmit.removeClass('btn-success');
+                buttonSubmit.text('Check');
+                break;
+        }
     }
 
     $('.btn-start').click(function(){
@@ -124,30 +148,6 @@ $.get('json/easy.json', null, null, 'json')
             }
         }, 1600);
     });
-
-    function setInputText(result) {
-        var buttonSubmit = $('button[type=submit]'),
-            textCheck = $('#text-check');
-        switch (result) {
-            case true:
-                textCheck.css('backgroundColor', 'lightgreen');
-                buttonSubmit.addClass('btn-success');
-                buttonSubmit.text('Correct');
-                break;
-            case false:
-                textCheck.css('backgroundColor', 'lightcoral');
-                buttonSubmit.addClass('btn-danger');
-                buttonSubmit.text('Wrong');
-                break;
-            default:
-                textCheck.val('');
-                textCheck.removeAttr("style");
-                buttonSubmit.removeClass('btn-danger');
-                buttonSubmit.removeClass('btn-success');
-                buttonSubmit.text('Check');
-                break;
-        }
-    }
 
     $('.btnResetQuestion').on('click', function() {
         location.reload();
