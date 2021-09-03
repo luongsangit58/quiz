@@ -82,5 +82,41 @@
         "d": "did"
       },
     "correct": "860588ba5aaaa096c3b085a99fd6c171"
+  },
+  {
+    "id": 8,
+    "question": "Where ___ she work?",
+    "answers": 
+      {
+        "a": "did",
+        "b": "is",
+        "c": "are",
+        "d": "does"
+      },
+    "correct": "67bedd7e7774c2e2604bc96c225d4b46"
+  },
+  {
+    "id": 9,
+    "question": "What time ___ she go to school?",
+    "answers": 
+      {
+        "a": "are",
+        "b": "does",
+        "c": "is",
+        "d": "do"
+      },
+    "correct": "471641e74b03fee9caff77125cef6bdf"
+  },
+  {
+    "id": 10,
+    "question": "What animal ___ that?",
+    "answers": 
+      {
+        "a": "is",
+        "b": "do",
+        "c": "did",
+        "d": "does"
+      },
+    "correct": "6ad229318eaf2552a2796e223f4887c6"
   }
 ]

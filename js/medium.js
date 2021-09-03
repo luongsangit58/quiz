@@ -102,6 +102,7 @@ $.get('json/medium.json', null, null, 'json')
     }
 
     function nextQuestion(question) {
+        counter = COUNTER_TIME;
         countTimeUp(COUNTER_TIME);
         if(questionId < Object.keys(response).length){
             $('.question-'+question.id).remove();
