@@ -13,6 +13,7 @@ $.get('json/medium.json', null, null, 'json')
     totalCorrect = 0,
     questionId = 0,
     counter = COUNTER_TIME,
+    flagLoadCorrect = false,
     countTime;
 
     response = response.sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
@@ -52,14 +53,17 @@ $.get('json/medium.json', null, null, 'json')
 
         $('.modal-quiz').append(html);
 
-        countTime = setInterval(function() {
-            counter--;
-            countTimeUp(counter)
-            if (counter == 0) {
-                clickSubmit(answer, question);
-                return false;
-            }
-        }, 1000);
+        //Check flag load correct
+        if(!flagLoadCorrect){
+            countTime = setInterval(function() {
+                counter--;
+                countTimeUp(counter)
+                if (counter == 0) {
+                    clickSubmit(answer, question);
+                    return false;
+                }
+            }, 1000);
+        }
 
         $('.question-answers label').on('click', function() {
             answer = $(this).attr('data-value');
@@ -71,11 +75,11 @@ $.get('json/medium.json', null, null, 'json')
     function countTimeUp(time){
         if(time == 0) {
             $('.times').html('Time up!!!');
-            $('.counter').addClass('time-up');
+            $('.counter h4').addClass('text-danger');
         }else{
             time = (time < COUNTER_TIME) ? '0'+time : time;
             $('.times').html('00:'+time);
-            $('.counter').removeClass('time-up');
+            $('.counter h4').removeClass('text-danger');
         }
     }
 
@@ -90,26 +94,19 @@ $.get('json/medium.json', null, null, 'json')
         }else{
             $('.question-'+question.id).find("label[data-value='"+answer+"']").addClass('btn-danger');
         }
-
-        $('.question-'+question.id).append(`
-        <div class="div-btn-quiz-medium text-center question-${question.id}">
-            <button type="submit" class="btn-next btn btn-lg btn-primary">Next</button>
-        </div>`);
-
-        $('.btn-next').on('click', function() {
-            nextQuestion(question);
-        });
+        setTimeout(function(){ nextQuestion(question); }, 1500);
     }
 
     function nextQuestion(question) {
         counter = COUNTER_TIME;
         countTimeUp(COUNTER_TIME);
-        if(questionId < Object.keys(response).length){
+        if(questionId < TOTAL_QUESTIONS){
             $('.question-'+question.id).remove();
             loadQuestion(questionId);
         }else{
             $('.question-'+question.id).remove();
             loading();
+            flagLoadCorrect = true;
             loadAllQuestions();
         }
     }
@@ -117,35 +114,37 @@ $.get('json/medium.json', null, null, 'json')
     function loadAllQuestions() {
         if(userAnswers){
             $('.counter').remove();
-            $('.total').append(`Correct: ${totalCorrect}/${Object.keys(response).length}`);
-            $('.total').css('display', 'block');
+            $('.total').append(`Correct: ${totalCorrect}/${TOTAL_QUESTIONS}`);
+            $('.total').show();
             $.each(response, function(key, question) {
+                var tmp = '';
                 loadQuestion(key);
                 setInterval(function(){ $('.div-btn-quiz-medium').remove(); }, 2000);
-                $('label').attr("disabled",true);
-                var tmp = '';
+                $('label').attr("disabled", true);
     
                 $("label").each(function(k, val) {                
                     if(question.correct === hashAnswer(question.id+$(val).attr('data-value'))) {
                         tmp = $(val).attr('data-value');
                     }
                 });
-                console.log(userAnswers[question.id])
+
                 if (userAnswers[question.id] !== tmp){
                     $('.question-'+question.id).find("label[data-value='"+userAnswers[question.id]+"']").addClass('btn-danger');
+                    // Cau hoi khong tra loi
                     if (userAnswers[question.id] == null){
                         $('.question-'+question.id).css('backgroundColor', 'lightgray');
                     }
                 }
+
                 $('.question-'+question.id).find("label[data-value='"+tmp+"']").addClass('btn-success');
             });
         }
     }
 
-    $('.btn-start').click(function(){
+    $('.btn-start').on('click', function() {
         loading();
         $('.modal-intro').remove();
-        $('.modal-quiz').css('display', 'block');
+        $('.modal-quiz').show();
         loadQuestion(questionId);
     });
 

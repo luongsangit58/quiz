@@ -83,7 +83,7 @@ $.get('json/easy.json', null, null, 'json')
         }
     }
 
-    $('.btn-start').click(function(){
+    $('.btn-start').on('click', function() {
         loading();
         $('.modal-intro').hide();
         $('.modal-easy').show();
