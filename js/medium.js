@@ -1,12 +1,12 @@
+// function loading: hiển thị preload
 function loading(){
     $('.loading').show();
     setInterval(function(){
         $('.loading').hide(100);
     }, 1200);
 }
-loading();
-$.get('json/medium.json', null, null, 'json')
-.then(function(response){
+// Đọc dữ liệu từ file json
+$.get('json/medium.json', null, null, 'json').then(function(response){
     const COUNTER_TIME = 10,
         TOTAL_QUESTIONS = 5;
     var userAnswers = {},
@@ -18,10 +18,12 @@ $.get('json/medium.json', null, null, 'json')
 
     response = response.sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
     
+    // function hashAnswer: mã hóa chuỗi MD5
     function hashAnswer(answer) {
         return CryptoJS.MD5(answer).toString();
     }
 
+    // function loadQuestion: hiển thị câu hỏi trắc nghiệm với tham số là id truyền vào
     function loadQuestion(q) {
         var answer = null;
             htmlAnswer = '';
@@ -83,6 +85,7 @@ $.get('json/medium.json', null, null, 'json')
         }
     }
 
+    // Click button submmit
     function clickSubmit(answer, question) { 
         clearInterval(countTime);
         questionId++;
@@ -97,9 +100,11 @@ $.get('json/medium.json', null, null, 'json')
         setTimeout(function(){ nextQuestion(question); }, 1500);
     }
 
+    // function nextQuestion: chuyển tiếp đến câu hỏi tiếp theo
     function nextQuestion(question) {
         counter = COUNTER_TIME;
         countTimeUp(COUNTER_TIME);
+        // Kiểm tra xem đã là câu hỏi cuối chưa
         if(questionId < TOTAL_QUESTIONS){
             $('.question-'+question.id).remove();
             loadQuestion(questionId);
@@ -111,6 +116,7 @@ $.get('json/medium.json', null, null, 'json')
         }
     }
 
+    // function loadAllQuestions: hiển thị kết quả 
     function loadAllQuestions() {
         if(userAnswers){
             $('.counter').remove();
@@ -141,6 +147,7 @@ $.get('json/medium.json', null, null, 'json')
         }
     }
 
+    // Click bắt đầu
     $('.btn-start').on('click', function() {
         loading();
         $('.modal-intro').remove();
@@ -148,6 +155,7 @@ $.get('json/medium.json', null, null, 'json')
         loadQuestion(questionId);
     });
 
+    // Click reset
     $('.btnResetQuestion').on('click', function() {
         location.reload();
     });
