@@ -4,7 +4,6 @@ function loading(){
         $('.loading').hide(100);
     }, 1200);
 }
-loading();
 sessionStorage.clear();
 document.addEventListener('contextmenu', event => event.preventDefault());
 $.get('json/easy.json', null, null, 'json')
