@@ -18,12 +18,12 @@ $.get('json/medium.json', null, null, 'json').then(function(response){
 
     response = response.sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
     
-    // function hashAnswer: mã hóa chuỗi MD5
+    //function hashAnswer: mã hóa chuỗi MD5
     function hashAnswer(answer) {
         return CryptoJS.MD5(answer).toString();
     }
 
-    // function loadQuestion: hiển thị câu hỏi trắc nghiệm với tham số là id truyền vào
+    //function loadQuestion: hiển thị câu hỏi trắc nghiệm với tham số là id truyền vào
     function loadQuestion(q) {
         var answer = null;
             htmlAnswer = '';
@@ -73,7 +73,8 @@ $.get('json/medium.json', null, null, 'json').then(function(response){
             clickSubmit(answer, question);
         });
     }
-
+    
+    //function countTimeUp: hiển thị đồng hồ đếm thời gian 
     function countTimeUp(time){
         if(time == 0) {
             $('.times').html('Time up!!!');

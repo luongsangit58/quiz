@@ -1,11 +1,17 @@
+// function loading: hiển thị preload
 function loading(){
     $('.loading').show();
     setInterval(function(){
         $('.loading').hide(100);
     }, 1200);
 }
+//Xóa sessionStorage sau khi load trang
 sessionStorage.clear();
+
+//Loại bỏ click chuột để tránh copy text
 document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Đọc dữ liệu từ file json
 $.get('json/easy.json', null, null, 'json')
 .then(function(response){
     const COUNTER = 5,
@@ -18,14 +24,17 @@ $.get('json/easy.json', null, null, 'json')
     
     response = response[0].text.split("|");
 
+    //function hashText: mã hóa chuỗi MD5
     function hashText(text) {
         return CryptoJS.MD5(text).toString();
     }
 
+    //function validateText: validate text
     function validateText(text) {
         return text.toLowerCase().trim();
     }
 
+    //function randomText: random text
     function randomText (min, max, blacklist) {
         if(!blacklist)
             blacklist = []
@@ -34,7 +43,8 @@ $.get('json/easy.json', null, null, 'json')
         while(blacklist.indexOf(retv = rand(min,max)) > -1) { }
         return retv;
     }
-
+    
+    //function loadText: hiển thị text
     function loadText() {
         $('.times').html('00:0'+COUNTER);
         keyText = randomText(0, response.length-1, blacklist);
@@ -81,7 +91,8 @@ $.get('json/easy.json', null, null, 'json')
                 break;
         }
     }
-
+    
+    //click start
     $('.btn-start').on('click', function() {
         loading();
         $('.modal-intro').hide();
@@ -89,6 +100,7 @@ $.get('json/easy.json', null, null, 'json')
         loadText();
     });
 
+    //click submit
     $('button[type=submit]').on('click', function() {
         var textInput = validateText($('#text-check').val());
         if(textInput == "") {
@@ -148,6 +160,7 @@ $.get('json/easy.json', null, null, 'json')
         }, 1600);
     });
 
+    //click reset
     $('.btnResetQuestion').on('click', function() {
         location.reload();
     });
