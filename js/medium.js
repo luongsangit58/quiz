@@ -5,6 +5,40 @@ function loading(){
         $('.loading').hide(100);
     }, 1200);
 }
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function getTextCorrect (data){
+    var textCorrect = '&#10071 Try harder &#10071';
+    switch (data) {
+        case 5:
+            textCorrect = '&#11088 Excellent &#11088';
+            break;
+        case 4:
+            textCorrect = '&#10024 Very good &#10024';
+            break;
+        case 3:
+            textCorrect = '&#127383 Good &#127383';
+            break;
+        default:
+            break;
+    }
+    return textCorrect;
+}
+
+// Check level
+var level = sessionStorage.getItem('level');
+if(!level) {
+    window.location.href = 'index.html';
+}
+$('.span-title').text(`-- Level ${level} | MEDIUM --`);    
+
 // Đọc dữ liệu từ file json
 $.get('json/medium.json', null, null, 'json').then(function(response){
     const COUNTER_TIME = 10,
@@ -14,9 +48,9 @@ $.get('json/medium.json', null, null, 'json').then(function(response){
     questionId = 0,
     counter = COUNTER_TIME,
     flagLoadCorrect = false,
+    htmlEnd = '',
     countTime;
-
-    response = response.sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
+    response = response[level].sort(() => Math.random() - 0.5).slice(-TOTAL_QUESTIONS);
     
     //function hashAnswer: mã hóa chuỗi MD5
     function hashAnswer(answer) {
@@ -29,12 +63,14 @@ $.get('json/medium.json', null, null, 'json').then(function(response){
             htmlAnswer = '';
 
         question = response[q];
-
-        $.each( question.answers, function( key, value ) {
+        var tmp = shuffleArray(question.answers);
+        console.log(tmp)
+        // key start at 0, 65 is "A"
+        $.each(tmp , function( key, value ) {
             htmlAnswer += `
             <label class="element-animation btn btn-lg btn-default btn-block" data-value="${value}">
-                <span class="btn-label">${key.toUpperCase()}</span>
-                <input type="radio" name="q_answer" value="${key}"> ${value}
+                <span class="btn-label">${String.fromCharCode(key+65)}</span> 
+                <input type="radio" name="q_answer" value="${String.fromCharCode(key+65)}"> ${value}
             </label> 
             `;
         });
@@ -52,7 +88,7 @@ $.get('json/medium.json', null, null, 'json').then(function(response){
                 </div>
             </div>
         `;
-
+        htmlEnd += html;
         $('.modal-quiz').append(html);
 
         //Check flag load correct
@@ -122,10 +158,12 @@ $.get('json/medium.json', null, null, 'json').then(function(response){
         if(userAnswers){
             $('.counter').remove();
             $('.total').append(`Correct: ${totalCorrect}/${TOTAL_QUESTIONS}`);
+            $('.total').append(`<p class="text-correct text-center">${getTextCorrect(totalCorrect)}</p>`);
             $('.total').show();
+            $('.modal-quiz').append(htmlEnd);
             $.each(response, function(key, question) {
                 var tmp = '';
-                loadQuestion(key);
+                // loadQuestion(key);
                 setInterval(function(){ $('.div-btn-quiz-medium').remove(); }, 2000);
                 $('label').attr("disabled", true);
     

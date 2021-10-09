@@ -1,5 +1,62 @@
-[
-  {
-    "text": "teacher:giáo viên | computer:máy tính | brother:anh/em trai | danger:nguy hiểm | chicken:con gà | mirror:gương | badminton:cầu lông | picture:hình ảnh | banana:quả chuối | search:tìm kiếm | register:đăng ký | address:địa chỉ | bedroom:phòng ngủ | basketball:bóng rổ  | monkey:con khỉ | yellow:màu vàng | purple:màu tím"
-  }
-]
+{
+  "N5": [
+    "yellow:màu vàng",
+    "purple:màu tím",
+    "orange:màu cam",
+    "green:màu xanh lá",
+    "black:màu đen",
+    "brown:màu nâu",
+    "gray:màu xám",
+    "blue:màu xanh dương",
+    "red:màu đỏ",
+    "pink:màu hồng"
+  ],
+  "N4": [
+    "banana:quả chuối",
+    "apple:quả táo",
+    "lemon:quả chanh",
+    "avocado:quả bơ",
+    "strawberry:quả dâu tây",
+    "peach:quả đào",
+    "watermelon:quả dưa hấu",
+    "coconut:quả dừa",
+    "starfruit:quả khế",
+    "pineapple:quả dứa"
+  ],
+  "N3": [
+    "chicken:con gà",
+    "monkey:con khỉ",
+    "rabbit:con thỏ",
+    "mouse:con chuột",
+    "snake:con rắn",
+    "elephant:con voi",
+    "horse:con ngựa",
+    "whale:cá voi",
+    "shark:cá mập",
+    "tiger:con hổ"
+  ],
+  "N2": [
+    "badminton:cầu lông",
+    "basketball:bóng rổ ",
+    "baseball:bóng chày",
+    "boxing:đấm bốc",
+    "football:bóng đá",
+    "swimming:bơi lội",
+    "volleyball:bóng chuyền",
+    "walking:đi bộ",
+    "archery:bắn cung",
+    "cycling:đạp xe"
+  ],
+  "N1": [
+    "doctor:bác sĩ",
+    "cashier:thu ngân",
+    "teacher:giáo viên",
+    "singer:ca sĩ",
+    "dancer:vũ công",
+    "photographer:nhiếp ảnh gia",
+    "reporter:phóng viên",
+    "baker:thợ làm bánh",
+    "pilot:phi công",
+    "artist:họa sĩ"
+  ]
+}

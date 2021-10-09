@@ -7,21 +7,33 @@ body{
 }
 
 .text-translate {
-  margin-top: 68px;
+  margin-top: -33px;
   position: relative;
 }
 
+.easy-img {
+    margin: 0 23% 15px 23%;
+    width: 200px;
+    height: 200px;
+}
+
+@media (min-width: 600px) {
+  .easy-img {
+    margin: 0 33% 15px 33%;
+    width: 200px;
+    height: 200px;
+}
+}
+
 .sign {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   width: 50%;
   height: 50%;
   transform: translate(-50%, -50%);
-  letter-spacing: 2;
   left: 50%;
-  top: 62%;
   font-family: "Clip";
   font-size: 4em;
   color: #ffe6ff;
@@ -29,6 +41,7 @@ body{
     -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
     0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
   animation: shine 2s forwards, flicker 3s infinite;
+  margin-top: 40px;
 }
 
 @keyframes blink {

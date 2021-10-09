@@ -199,7 +199,7 @@ label .glyphicon {
 }
 
 .modal-easy {
-    height: 150px;
+    /* height: 150px; */
 }
 
 .input-group {
@@ -210,7 +210,7 @@ label .glyphicon {
 body {
 	margin: 0;
 	width: 100%;
-	background: linear-gradient(-45deg, #fdd1c3, #f3b8ce, #80d4f3, #93e2d0);
+	background: linear-gradient(-45deg, #68cff5, #a6e1f7, #68cff5, #a6e1f7);
 	background-size: 400% 800%;
 	animation: gradientBG 15s ease infinite;
 }
@@ -227,6 +227,10 @@ body {
 	position: absolute;
 	top: 35%;
 	text-align: center;
+}
+
+.text-correct {
+    margin-top: 20px;
 }
 
 /* title banner */
@@ -266,6 +270,19 @@ body {
 
 #to_top:hover {
     background: #eee
+}
+
+#to_homepage {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #E5E5E5;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 3px;
+    position: fixed;
+    bottom: 20px;
+    left: 20px
 }
 
 .span-title{

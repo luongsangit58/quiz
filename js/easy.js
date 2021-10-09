@@ -6,7 +6,14 @@ function loading(){
     }, 1200);
 }
 //Xóa sessionStorage sau khi load trang
-sessionStorage.clear();
+// sessionStorage.clear();
+
+// Check level
+var level = sessionStorage.getItem('level');
+if(!level) {
+    window.location.href = 'index.html';
+}
+$('.span-title').text(`-- Level ${level} | EASY --`);    
 
 //Loại bỏ click chuột để tránh copy text
 document.addEventListener('contextmenu', event => event.preventDefault());
@@ -15,15 +22,13 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 $.get('json/easy.json', null, null, 'json')
 .then(function(response){
     const COUNTER = 5,
-        TOTAL_TEXT = 10;
+        TOTAL_TEXT = 5;
     var counter = COUNTER,
         blacklist = [],
         keyText = null,
         itemChecked = '',
         correct = 0;
-    
-    response = response[0].text.split("|");
-
+    response = response[level];
     //function hashText: mã hóa chuỗi MD5
     function hashText(text) {
         return CryptoJS.MD5(text).toString();
@@ -43,6 +48,24 @@ $.get('json/easy.json', null, null, 'json')
         while(blacklist.indexOf(retv = rand(min,max)) > -1) { }
         return retv;
     }
+
+    function getTextCorrect (data){
+        var textCorrect = '&#10071 Try harder &#10071';
+        switch (data) {
+            case 5:
+                textCorrect = '&#11088 Excellent &#11088';
+                break;
+            case 4:
+                textCorrect = '&#10024 Very good &#10024';
+                break;
+            case 3:
+                textCorrect = '&#127383 Good &#127383';
+                break;
+            default:
+                break;
+        }
+        return textCorrect;
+    }
     
     //function loadText: hiển thị text
     function loadText() {
@@ -52,6 +75,8 @@ $.get('json/easy.json', null, null, 'json')
         var text = response[keyText].split(":");
         sessionStorage.setItem(keyText, hashText(keyText+validateText(text[0])));
         $('.flicker').text(validateText(text[0]));
+        $('.easy-img').attr("src", `picture/easy/${level}_${text[0]}.jpg`);
+        $('.easy-img').show();
         $('.text-translate').text(validateText(text[1]));
         countTime = setInterval(function() {
             counter--;
@@ -61,6 +86,7 @@ $.get('json/easy.json', null, null, 'json')
                 $('.flicker').html('');
                 $('.text-remember').hide();
                 $('.counter').hide();
+                $('.easy-img').hide();
                 $('.input-group').show();
                 $('#text-check').focus();
                 return false;
@@ -114,12 +140,15 @@ $.get('json/easy.json', null, null, 'json')
             setInputText(false);
             var flagCheck = false;
         }
+        $('.easy-img').show();
+        $('.text-remember').show();
         $(this).prop("disabled", true);
         var text = response[keyText].split(":");
         itemChecked += `<tr class="bg-${flagCheck ? "success" : "danger"}">
                             <td>${validateText(text[0])}</td>
                             <td>${textInput}</td>
                             <td>${validateText(text[1])}</td>
+                            <td><img src="picture/easy/${level}_${text[0]}.jpg" alt="${text[0]}" height=75 width=75></img></td>
                             <td><span class="label label-${flagCheck ? "success" : "danger"}">${flagCheck ? "Correct" : "Wrong"}</span></td>
                         </tr>`;
 
@@ -138,12 +167,14 @@ $.get('json/easy.json', null, null, 'json')
                 loadText();
                 var htmlResult = `
                                 <h3 class="text-center text-danger">Correct: ${correct}/${TOTAL_TEXT}</h3>
+                                <h3 class="text-center text-danger">${getTextCorrect(correct)}</h3>
                                 <table class="table table-condensed">
-                                    <thead>
+                                    <thead class="thead-dark">
                                         <tr>
                                             <th class="text-center">Text</th>
                                             <th class="text-center">Your input</th>
                                             <th class="text-center">Translate</th>
+                                            <th class="text-center">Image</th>
                                             <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
@@ -157,7 +188,7 @@ $.get('json/easy.json', null, null, 'json')
                 $('.modal-easy').hide();
                 $('.modal-intro').show();
             }
-        }, 1600);
+        }, 2000);
     });
 
     //click reset
