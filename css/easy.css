@@ -12,17 +12,9 @@ body{
 }
 
 .easy-img {
-    margin: 0 23% 15px 23%;
-    width: 200px;
-    height: 200px;
-}
-
-@media (min-width: 600px) {
-  .easy-img {
-    margin: 0 33% 15px 33%;
-    width: 200px;
-    height: 200px;
-}
+    margin: 5px 25%;
+    width: 50%;
+    height: 50%;
 }
 
 .sign {

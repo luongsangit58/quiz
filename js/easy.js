@@ -140,8 +140,8 @@ $.get('json/easy.json', null, null, 'json')
             setInputText(false);
             var flagCheck = false;
         }
-        $('.easy-img').show();
-        $('.text-remember').show();
+        $('.easy-img').show().delay(1500).hide(500);
+        $('.text-remember').show().delay(1500).hide(500);
         $(this).prop("disabled", true);
         var text = response[keyText].split(":");
         itemChecked += `<tr class="bg-${flagCheck ? "success" : "danger"}">
