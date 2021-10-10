@@ -36,6 +36,10 @@ body{
   margin-top: 40px;
 }
 
+.table-scroll {
+  overflow-x: auto;
+}
+
 @keyframes blink {
   0%,
   22%,

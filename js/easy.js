@@ -140,8 +140,9 @@ $.get('json/easy.json', null, null, 'json')
             setInputText(false);
             var flagCheck = false;
         }
-        $('.easy-img').show().delay(1500).hide(500);
-        $('.text-remember').show().delay(1500).hide(500);
+        $('.easy-img').show();
+        setTimeout(function(){ $('.easy-img').removeAttr('src'); }, 2000);
+        $('.text-remember').show(100).delay(1800).hide(0);
         $(this).prop("disabled", true);
         var text = response[keyText].split(":");
         itemChecked += `<tr class="bg-${flagCheck ? "success" : "danger"}">
@@ -168,20 +169,22 @@ $.get('json/easy.json', null, null, 'json')
                 var htmlResult = `
                                 <h3 class="text-center text-danger">Correct: ${correct}/${TOTAL_TEXT}</h3>
                                 <h3 class="text-center text-danger">${getTextCorrect(correct)}</h3>
-                                <table class="table table-condensed">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th class="text-center">Text</th>
-                                            <th class="text-center">Your input</th>
-                                            <th class="text-center">Translate</th>
-                                            <th class="text-center">Image</th>
-                                            <th class="text-center">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${itemChecked}
-                                    </tbody>
-                                </table>
+                                <div class="table-scroll">
+                                    <table class="table table-condensed table-responsive">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-center">Text</th>
+                                                <th class="text-center">Your input</th>
+                                                <th class="text-center">Translate</th>
+                                                <th class="text-center">Image</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${itemChecked}
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <a href="/easy.html" class="btn btn-primary btn-md">Reset</a>
                                 `;
                 $('.modal-body').html(htmlResult);
