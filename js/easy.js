@@ -16,7 +16,7 @@ if(!level) {
 $('.span-title').text(`-- Level ${level} | EASY --`);    
 
 //Loại bỏ click chuột để tránh copy text
-document.addEventListener('contextmenu', event => event.preventDefault());
+// document.addEventListener('contextmenu', event => event.preventDefault());
 
 // Đọc dữ liệu từ file json
 $.get('json/easy.json', null, null, 'json')
@@ -75,7 +75,11 @@ $.get('json/easy.json', null, null, 'json')
         var text = response[keyText].split(":");
         sessionStorage.setItem(keyText, hashText(keyText+validateText(text[0])));
         $('.flicker').text(validateText(text[0]));
-        $('.easy-img').attr("src", `picture/easy/${level}_${text[0]}.jpg`);
+        if(level === 'N5'){
+            $('.easy-img').attr("src", `picture/easy/${level}_${text[0]}.jpg`);
+        } else {
+            $('.easy-img').remove();
+        }
         $('.easy-img').show();
         $('.text-translate').text(validateText(text[1]));
         countTime = setInterval(function() {
@@ -149,7 +153,7 @@ $.get('json/easy.json', null, null, 'json')
                             <td>${validateText(text[0])}</td>
                             <td>${textInput}</td>
                             <td>${validateText(text[1])}</td>
-                            <td><img src="picture/easy/${level}_${text[0]}.jpg" alt="${text[0]}" height=75 width=75></img></td>
+                            ${(level === 'N5') ? `<td><img src="picture/easy/${level}_${text[0]}.jpg" alt="${text[0]}" height=75 width=75></img></td>` : ``}
                             <td><span class="label label-${flagCheck ? "success" : "danger"}">${flagCheck ? "Correct" : "Wrong"}</span></td>
                         </tr>`;
 
@@ -176,7 +180,7 @@ $.get('json/easy.json', null, null, 'json')
                                                 <th class="text-center">Text</th>
                                                 <th class="text-center">Your input</th>
                                                 <th class="text-center">Translate</th>
-                                                <th class="text-center">Image</th>
+                                                <th class="text-center" style="display:${(level === 'N5' ? '' : 'none')}">Image</th>
                                                 <th class="text-center">Status</th>
                                             </tr>
                                         </thead>
