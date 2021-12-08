@@ -10,10 +10,13 @@ function loading(){
 
 // Check level
 var level = sessionStorage.getItem('level');
-if(!level) {
+var easy_type = sessionStorage.getItem('easy_type');
+
+if(!level || !easy_type) {
     window.location.href = 'index.html';
 }
-$('.span-title').text(`-- Level ${level} | EASY --`);    
+
+$('.span-title').text(`-- Level ${level} | EASY | ${easy_type} --`);    
 
 //Loại bỏ click chuột để tránh copy text
 // document.addEventListener('contextmenu', event => event.preventDefault());
@@ -73,7 +76,8 @@ $.get('json/easy.json', null, null, 'json')
         keyText = randomText(0, response.length-1, blacklist);
         blacklist.push(keyText);
         var text = response[keyText].split(":");
-        sessionStorage.setItem(keyText, hashText(keyText+validateText(text[0])));
+        var textResult = (easy_type === 'Test') ? text[0] : text[1];
+        sessionStorage.setItem(keyText, hashText(keyText+validateText(textResult)));
         $('.flicker').text(validateText(text[0]));
         if(level === 'N5'){
             $('.easy-img').attr("src", `picture/easy/${level}_${text[0]}.jpg`);
@@ -81,7 +85,7 @@ $.get('json/easy.json', null, null, 'json')
             $('.easy-img').remove();
         }
         $('.easy-img').show();
-        $('.text-translate').text(validateText(text[1]));
+        $('.text-translate').text(validateText(`${text[0]}: ${text[1]}`));
         countTime = setInterval(function() {
             counter--;
             $('.times').html('00:0'+counter);

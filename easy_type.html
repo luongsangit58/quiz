@@ -29,10 +29,10 @@
                     <div class="col-xs-3 5"></div>
                     <div class="quiz" id="quiz" data-toggle="buttons">
                         <label class="element-animation btn btn-lg btn-warning btn-block btn-label" >
-                            <input type="radio" name="q_answer" value="easy_type"> Easy
+                            <input type="radio" name="q_answer" value="Learn"> Learn
                         </label> 
                         <label class="element-animation btn btn-lg btn-success btn-block btn-label">
-                            <input type="radio" name="q_answer" value="medium"> Medium
+                            <input type="radio" name="q_answer" value="Test"> Test
                         </label>
                     </div>
                 </div>
@@ -56,13 +56,14 @@
         var level = sessionStorage.getItem('level');
             
         if(!level) {
-            window.location.href = 'index.html';
+            window.location.href = 'type.html';
         }
-        $('.span-title').text(`-- Level ${level} --`);    
+        $('.span-title').text(`-- Level ${level} | EASY --`);    
             $('.quiz label').on('click', function() {
                 loading();
-                var mode = $(this).find('input').val();
-                window.location.href = `${mode}.html`;
+                var easy_type = $(this).find('input').val();
+                sessionStorage.setItem('easy_type', easy_type);
+                window.location.href = `easy.html`;
             });
     </script>
 </body>
