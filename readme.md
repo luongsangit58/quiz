@@ -1,6 +1,6 @@
 *Web/app English
-- Sử dụng jQuery (thư viện JavaScript).
-- Sử dụng bootstrap xây dựng giao diện một cách dễ dàng, tiện lợi.
-- Sử dụng các animation bằng css làm sinh động cho web app.
-- Triển khai đọc dữ liệu từ file json thay vì sử dụng server và kết nối database.
-- Sử dụng mã hóa MD5 để hẹn chế tối đa việc bị lộ đáp án của các câu hỏi trong file json.
+- Use jQuery (a JavaScript library).
+- Use Bootstrap to build the interface easily and conveniently.
+- Use CSS animations to make the web app more dynamic.
+- Implement data reading from a JSON file instead of using a server and connecting to a database.
+- Use MD5 encryption to minimize the exposure of answers in the JSON file.
